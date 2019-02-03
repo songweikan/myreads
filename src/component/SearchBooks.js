@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button, Input, Row, Col } from 'antd'
 
 import Book from './Book'
 import { search, getAll } from '../BooksAPI'
@@ -41,36 +42,38 @@ class SearchBooks extends React.Component {
   }
 
   render = () => {
-    const { query, books, myBooks } = this.state
+    const { books, myBooks } = this.state
     return (
-      <div className="search-books">
-        <div className="search-books-bar">
-          <button className="close-search" onClick={() => { this.props.history.push('/') }}>Close</button>
-          <div className="search-books-input-wrapper">
-            <input
-              type="text"
-              placeholder="Search by title or author"
-              onChange={this.handleQueryChange}
-              value={query}
-            />
-          </div>
-        </div>
-        <div className="search-books-results">
-          <ol className="books-grid">
-            {books.map((book, index) => {
-              const myBook = myBooks.get(book.id) || {}
-              return (
+      <div>
+        <Input
+          type='text'
+          placeholder="Search by title or author"
+          onChange={this.handleQueryChange}
+          addonBefore={
+            <Button icon='left' onClick={() => { this.props.history.push('/') }} />
+          }
+        ></Input>
+        <Row
+          type='flex'
+          justify='center'
+          gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+        >
+          {books.map((book) => {
+            const myBook = myBooks.get(book.id) || {}
+            return (
+              <Col
+                key={book.id}
+              >
                 <Book
-                  key={index}
                   book={{
                     ...book,
                     shelf: myBook.shelf || 'none',
                   }}
                 />
-              )
-            })}
-          </ol>
-        </div>
+              </Col>
+            )
+          })}
+        </Row>
       </div>
     )
   }

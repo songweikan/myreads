@@ -1,25 +1,34 @@
 import React from 'react'
+import { Card, Row, Col } from 'antd'
+
 import Book from './Book'
+
 
 class BookShelf extends React.Component {
   render = () => {
     const { title, books } = this.props
     return (
-      <div className="bookshelf">
-        <h2 className="bookshelf-title">{title}</h2>
-        <div className="bookshelf-books">
-          <ol className="books-grid">
-            {books.map((book, index) => (
-              <li key={index}>
-                <Book
-                  book={book}
-                  onShelfChange={this.props.onShelfChange}
-                />
-              </li>
-            ))}
-          </ol>
-        </div>
-      </div>
+      <Card
+        title={title}
+        bordered={false}
+      >
+        <Row
+          type='flex'
+          justify='center'
+          gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+        >
+          {books.map((book) => (
+            <Col
+              key={book.id}
+            >
+              <Book
+                book={book}
+                onShelfChange={this.props.onShelfChange}
+              />
+            </Col>
+          ))}
+        </Row>
+      </Card>
     )
   }
 }

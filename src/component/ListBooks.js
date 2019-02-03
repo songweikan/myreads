@@ -1,8 +1,11 @@
 import React from 'react'
+import { Layout, Button } from 'antd'
 
 import { getAll } from '../BooksAPI'
 import { shelves } from '../Enums'
 import BookShelf from './BookShelf'
+
+const { Header, Content } = Layout
 
 class ListBooks extends React.Component {
   state = {
@@ -34,27 +37,29 @@ class ListBooks extends React.Component {
       return books
     }, {})
     return (
-      <div className="list-books">
-        <div className="list-books-title">
+      <Layout>
+        <Header className='list-books-title'>
           <h1>MyReads</h1>
-        </div>
-        <div className="list-books-content">
-          <div>{
-            Object.entries(shelves).map(([key, title]) => (
-              <BookShelf
-                key={key}
-                title={title}
-                books={books[key] || []}
-                onShelfChange={this.onShelfChange}
-              />
-            ))
-          }
-          </div>
-        </div>
-        <div className="open-search">
-          <button onClick={() => { this.props.history.push('/search') }}>Add a book</button>
-        </div>
-      </div >
+        </Header>
+        <Content>
+          {Object.entries(shelves).map(([key, title]) => (
+            <BookShelf
+              key={key}
+              title={title}
+              books={books[key] || []}
+              onShelfChange={this.onShelfChange}
+            />
+          ))}
+          <Button
+            className='open-search'
+            type='primary'
+            shape='circle'
+            size='large'
+            icon='plus'
+            onClick={() => { this.props.history.push('/search') }}
+          />
+        </Content>
+      </Layout >
     )
   }
 }
