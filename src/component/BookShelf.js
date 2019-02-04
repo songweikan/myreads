@@ -11,6 +11,7 @@ class BookShelf extends React.Component {
       <Card
         title={title}
         bordered={false}
+        loading={books.length === 0}
       >
         <Row
           type='flex'

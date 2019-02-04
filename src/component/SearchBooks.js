@@ -55,7 +55,7 @@ class SearchBooks extends React.Component {
         ></Input>
         <Row
           type='flex'
-          justify='center'
+          justify='start'
           gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
         >
           {books.map((book) => {
